@@ -88,18 +88,20 @@ const ProjectList = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Projects</h2>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Projects</h2>
                 {user?.role === 'Admin' && !showCreateForm && (
-                    <button onClick={() => setShowCreateForm(true)} className="text-white bg-black px-6 py-2 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95">
+                    <button onClick={() => setShowCreateForm(true)} className="w-full md:w-auto text-white bg-black px-6 py-2.5 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 shadow-lg shadow-black/10">
                         + Create New Project
                     </button>
                 )}
             </div>
             
             {user?.role === 'Admin' && showCreateForm && (
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 transition-all mb-8 max-w-2xl relative">
-                    <button onClick={resetForm} className="absolute top-6 right-6 text-gray-400 hover:text-black font-bold">✕ Close</button>
+                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 transition-all mb-8 max-w-2xl relative">
+                    <button onClick={resetForm} className="absolute top-4 md:top-6 right-4 md:right-6 text-gray-400 hover:text-black font-bold flex items-center gap-1 text-sm">
+                        <span className="hidden md:inline">✕</span> Close
+                    </button>
                     <h3 className="text-xl font-bold text-gray-900 mb-6">{editingProject ? 'Edit Project' : 'Create New Project'}</h3>
                     <form onSubmit={editingProject ? handleUpdateProject : handleCreateProject}>
                         <div className="mb-5">
@@ -128,7 +130,7 @@ const ProjectList = () => {
                 </div>
             )}
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+            <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto custom-scrollbar">
                 {projects.length === 0 ? <p className="text-gray-500">No projects found.</p> : (
                     <table className="w-full text-left border-collapse">
                         <thead>

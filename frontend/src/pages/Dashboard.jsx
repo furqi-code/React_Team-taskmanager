@@ -68,24 +68,24 @@ const Dashboard = () => {
 
     return (
         <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 tracking-tight">Dashboard</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Pending Tasks</h3>
-                    <p className="text-4xl font-bold text-black mt-2">{pending}</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8 tracking-tight">Dashboard</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">Pending Tasks</h3>
+                    <p className="text-3xl md:text-4xl font-bold text-black mt-2">{pending}</p>
                 </div>
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">In Progress Tasks</h3>
-                    <p className="text-4xl font-bold text-black mt-2">{inProgress}</p>
+                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">In Progress</h3>
+                    <p className="text-3xl md:text-4xl font-bold text-black mt-2">{inProgress}</p>
                 </div>
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Completed Tasks</h3>
-                    <p className="text-4xl font-bold text-black mt-2">{completed}</p>
+                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 transition-all hover:-translate-y-1 hover:shadow-md sm:col-span-2 lg:col-span-1">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">Completed Tasks</h3>
+                    <p className="text-3xl md:text-4xl font-bold text-black mt-2">{completed}</p>
                 </div>
             </div>
 
-            <h3 className="text-2xl font-bold text-gray-900 mt-12 mb-6">Recent Tasks</h3>
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mt-10 md:mt-12 mb-6">Recent Tasks</h3>
+            <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto custom-scrollbar">
                 {tasks.length === 0 ? <p className="text-gray-500">No tasks found.</p> : (
                     <table className="w-full text-left border-collapse mb-4">
                         <thead>
@@ -124,9 +124,9 @@ const Dashboard = () => {
                     </table>
                 )}
                 {currentUser ? (
-                    <Link to="/tasks" className="inline-block text-center text-white bg-black border border-black px-6 py-3 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 mt-6">View All Tasks</Link>
+                    <Link to="/tasks" className="w-full md:w-auto inline-block text-center text-white bg-black border border-black px-8 py-3.5 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 mt-6 shadow-lg shadow-black/10">View All Tasks</Link>
                 ) : (
-                    <button onClick={() => setIsLoginPopupOpen(true)} className="inline-block text-center text-white bg-black border border-black px-6 py-3 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 mt-6">View All Tasks</button>
+                    <button onClick={() => setIsLoginPopupOpen(true)} className="w-full md:w-auto inline-block text-center text-white bg-black border border-black px-8 py-3.5 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 mt-6 shadow-lg shadow-black/10">View All Tasks</button>
                 )}
             </div>
 

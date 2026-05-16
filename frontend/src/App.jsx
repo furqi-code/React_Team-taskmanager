@@ -16,7 +16,7 @@ const App = () => {
           <Router>
             <div className="flex flex-col min-h-screen bg-[#f9f9f9] text-[#111] font-sans">
                 <Navbar />
-                <div className="flex-1 w-full max-w-6xl mx-auto px-8 py-12">
+                <div className="flex-1 w-full max-w-6xl mx-auto px-4 md:px-8 py-6 md:py-12">
                     <Routes>
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/login" element={<Login />} />

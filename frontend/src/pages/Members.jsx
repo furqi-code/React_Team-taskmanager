@@ -36,8 +36,8 @@ const Members = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Users</h2>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">Users</h2>
             </div>
             
             {members.length === 0 ? (

@@ -23,8 +23,8 @@ const Login = () => {
     };
 
     return (
-        <div className="bg-white p-10 rounded-3xl shadow-lg border border-gray-100 max-w-md w-full mx-auto mt-16">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Login</h2>
+        <div className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 max-w-md w-full mx-auto mt-10 md:mt-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8">Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-5">
                     <label className="block mb-2 font-semibold text-gray-700 text-sm">Email</label>

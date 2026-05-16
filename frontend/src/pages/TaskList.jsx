@@ -163,13 +163,13 @@ const TaskList = () => {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-8">
-                <div className="flex items-center gap-4">
-                    <h2 className="text-3xl font-bold text-gray-900 tracking-tight mr-2">Tasks</h2>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div className="flex flex-wrap items-center gap-3 md:gap-4 w-full md:w-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight mr-2">Tasks</h2>
                     <select
                         value={selectedProjectFilter}
                         onChange={e => setSelectedProjectFilter(e.target.value)}
-                        className="px-4 py-1.5 rounded-full text-sm font-semibold transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200 border-none outline-none cursor-pointer appearance-none pr-8 bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234b5563\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_0.75rem_center] bg-[length:1em]"
+                        className="px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors bg-gray-100 text-gray-600 hover:bg-gray-200 border-none outline-none cursor-pointer appearance-none pr-8 bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%234b5563\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_0.75rem_center] bg-[length:1em]"
                     >
                         <option value="">All Projects</option>
                         {projects.map(p => (
@@ -178,56 +178,60 @@ const TaskList = () => {
                     </select>
                     <button 
                         onClick={() => setShowMyTasksOnly(!showMyTasksOnly)}
-                        className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${showMyTasksOnly ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                        className={`px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors ${showMyTasksOnly ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                     >
                         {showMyTasksOnly ? 'Show All Tasks' : 'My Tasks'}
                     </button>
                 </div>
                 {currentUser?.role === 'Admin' && !showCreateForm && (
-                    <button onClick={() => setShowCreateForm(true)} className="text-white bg-black px-6 py-2 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95">
+                    <button onClick={() => setShowCreateForm(true)} className="w-full md:w-auto text-white bg-black px-6 py-2.5 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 shadow-lg shadow-black/10">
                         + Create New Task
                     </button>
                 )}
             </div>
 
             {currentUser?.role === 'Admin' && showCreateForm && (
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 transition-all mb-8 max-w-2xl relative">
-                    <button onClick={resetForm} className="absolute top-6 right-6 text-gray-400 hover:text-black font-bold">✕ Close</button>
+                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200 transition-all mb-8 max-w-2xl relative">
+                    <button onClick={resetForm} className="absolute top-4 md:top-6 right-4 md:right-6 text-gray-400 hover:text-black font-bold flex items-center gap-1 text-sm">
+                        <span className="hidden md:inline">✕</span> Close
+                    </button>
                     <h3 className="text-xl font-bold text-gray-900 mb-6">{editingTask ? 'Edit Task' : 'Create New Task'}</h3>
                     <form onSubmit={editingTask ? handleUpdateTask : handleCreateTask}>
-                        <div className="mb-5">
-                            <label className="block mb-2 font-semibold text-gray-700 text-sm">Title</label>
-                            <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10" />
-                        </div>
-                        <div className="mb-5">
-                            <label className="block mb-2 font-semibold text-gray-700 text-sm">Description</label>
-                            <textarea value={description} onChange={e => setDescription(e.target.value)} rows="2" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10"></textarea>
-                        </div>
-                        <div className="mb-5">
-                            <label className="block mb-2 font-semibold text-gray-700 text-sm">Project</label>
-                            {projects.length === 0 ? (
-                                <p className="text-red-500 font-medium text-sm">Please create a project first before adding a task.</p>
-                            ) : (
-                                <select value={projectId} onChange={e => setProjectId(e.target.value)} required className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2364748b\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:1em] pr-10 cursor-pointer">
-                                    <option value="" disabled>Select a project</option>
-                                    {projects.map(p => (
-                                        <option key={p.id} value={p.id}>{p.name}</option>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                            <div className="md:col-span-2">
+                                <label className="block mb-2 font-semibold text-gray-700 text-sm">Title</label>
+                                <input type="text" value={title} onChange={e => setTitle(e.target.value)} required className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10" />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block mb-2 font-semibold text-gray-700 text-sm">Description</label>
+                                <textarea value={description} onChange={e => setDescription(e.target.value)} rows="2" className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10"></textarea>
+                            </div>
+                            <div>
+                                <label className="block mb-2 font-semibold text-gray-700 text-sm">Project</label>
+                                {projects.length === 0 ? (
+                                    <p className="text-red-500 font-medium text-sm">Please create a project first before adding a task.</p>
+                                ) : (
+                                    <select value={projectId} onChange={e => setProjectId(e.target.value)} required className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2364748b\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:1em] pr-10 cursor-pointer">
+                                        <option value="" disabled>Select a project</option>
+                                        {projects.map(p => (
+                                            <option key={p.id} value={p.id}>{p.name}</option>
+                                        ))}
+                                    </select>
+                                )}
+                            </div>
+                            <div>
+                                <label className="block mb-2 font-semibold text-gray-700 text-sm">Assign To</label>
+                                <select value={assignedTo} onChange={e => setAssignedTo(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2364748b\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:1em] pr-10 cursor-pointer">
+                                    <option value="">Unassigned</option>
+                                    {users.map(u => (
+                                        <option key={u.id} value={u.id}>{u.name}</option>
                                     ))}
                                 </select>
-                            )}
-                        </div>
-                        <div className="mb-5">
-                            <label className="block mb-2 font-semibold text-gray-700 text-sm">Assign To</label>
-                            <select value={assignedTo} onChange={e => setAssignedTo(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10 appearance-none bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%2364748b\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e')] bg-no-repeat bg-[position:right_1rem_center] bg-[length:1em] pr-10 cursor-pointer">
-                                <option value="">Unassigned</option>
-                                {users.map(u => (
-                                    <option key={u.id} value={u.id}>{u.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-5">
-                            <label className="block mb-2 font-semibold text-gray-700 text-sm">Due Date</label>
-                            <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10" />
+                            </div>
+                            <div className="md:col-span-2">
+                                <label className="block mb-2 font-semibold text-gray-700 text-sm">Due Date</label>
+                                <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} className="w-full px-4 py-3 border border-gray-300 rounded-xl text-base bg-gray-50 text-gray-800 transition-all focus:outline-none focus:border-black focus:ring-4 focus:ring-black/10" />
+                            </div>
                         </div>
                         <button type="submit" disabled={projects.length === 0} className="w-full mt-2 inline-block text-center text-white bg-black border border-black px-6 py-3 rounded-xl font-semibold transition-all hover:bg-gray-800 active:scale-95 disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed disabled:active:scale-100">
                             {editingTask ? 'Update Task' : 'Create Task'}
@@ -236,7 +240,7 @@ const TaskList = () => {
                 </div>
             )}
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto">
+            <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto custom-scrollbar">
                 {displayedTasks.length === 0 ? <p className="text-gray-500">No tasks found.</p> : (
                     <table className="w-full text-left border-collapse">
                         <thead>
