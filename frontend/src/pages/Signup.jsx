@@ -74,7 +74,7 @@ const Signup = () => {
                         <option value="AI Researcher">AI Researcher</option>
                         <option value="Data Analyst">Data Analyst</option>
                         <option value="Sales Executive">Sales Executive</option>
-                        <option value="Manager">Manager</option>
+                        <option value="Manager(admin)">Manager(admin)</option>
                     </select>
                 </div>
                 <div className="mb-5">
