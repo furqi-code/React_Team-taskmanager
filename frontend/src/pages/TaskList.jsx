@@ -118,11 +118,17 @@ const TaskList = () => {
     };
 
     const handleStatusChange = async (taskId, newStatus) => {
+        // Optimistic UI Update for instant feedback
+        const originalTasks = [...tasks];
+        setTasks(tasks.map(task => task.id === taskId ? { ...task, status: newStatus } : task));
+        
         try {
             await api.put(`/tasks/${taskId}/status`, { status: newStatus });
-            fetchData();
+            // We don't need to fetch all data again here since the local state is already updated!
             showToast('Status updated', 'success');
         } catch (err) {
+            // Revert back if the API call fails
+            setTasks(originalTasks);
             showToast('Error updating status', 'error');
         }
     };
